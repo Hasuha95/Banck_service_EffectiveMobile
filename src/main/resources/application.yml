@@ -1,0 +1,24 @@
+server:
+  port: 9506
+  servlet:
+    context-path: /Bank account
+
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/Bank
+    username:
+    password:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: Bank
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        hbm2ddl:
+          auto: create
+        temp:
+          use_jdbc_metadata_defaults: false
+  thymeleaf:
+    encoding: UTF-8
