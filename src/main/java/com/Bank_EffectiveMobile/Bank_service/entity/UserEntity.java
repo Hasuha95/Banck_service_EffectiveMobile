@@ -1,4 +1,4 @@
-package com.Bank_EffectiveMobile.Bank_service.model.entity;
+package com.Bank_EffectiveMobile.Bank_service.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Entity
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,24 +27,24 @@ public class UserEntity {
     private LocalDate dateOfBirth;
     @Column(length = 64, nullable = false, unique = true)
     private String login;
-    @Column(length = 64, nullable = false, unique = true)
+    @Column(length = 64, nullable = false)
     private String password;
     @Column(nullable = false)
-    private List<String> listOfNumbers = new ArrayList<>();
+    private List<String> numbers = new ArrayList<>();
     @Column(nullable = false)
-    private List<String> listOfEmails = new ArrayList<>();
-    @OneToOne
-    private BankAccountEntity account;
+    private List<String> emails = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    private AccountEntity account;
 
     public UserEntity() {
-//        account = new BankAccountEntity();
+        account = new AccountEntity();
     }
 
-    public void setListOfNumbers(String number){
-        listOfNumbers.add(number);
+    public void setNumbers(String number){
+        numbers.add(number);
     }
 
-    public void setListOfEmails(String email) {
-        listOfEmails.add(email);
+    public void setEmails(String email) {
+        emails.add(email);
     }
 }

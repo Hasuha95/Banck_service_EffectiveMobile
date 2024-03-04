@@ -23,5 +23,5 @@ spring:
   thymeleaf:
     encoding: UTF-8
 
-bank-account:
+account:
   default-sum: 1000
