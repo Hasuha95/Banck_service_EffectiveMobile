@@ -13,8 +13,8 @@ public class UserDtoConvertor {
         entity.setDateOfBirth(userDto.getDateOfBirth());
         entity.setLogin(userDto.getLogin());
         entity.setPassword(userDto.getPassword());
-        entity.setNumbers(userDto.getNumber());
-        entity.setEmails(userDto.getEmail());
+        entity.setNumbers(userDto.getNumbers());
+        entity.setEmails(userDto.getEmails());
         entity.setAccount(AccountDtoConvertor.convertAccountDtoToEntity(userDto.getAccount()));
 
         return entity;

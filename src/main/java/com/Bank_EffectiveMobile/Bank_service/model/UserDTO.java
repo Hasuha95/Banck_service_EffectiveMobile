@@ -5,10 +5,11 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @ToString
 @Data
 @Validated
@@ -31,12 +32,12 @@ public class UserDTO {
     @Length(min = 4, max = 64, message = "incorrect password field length")
     private String password;
     @NotNull
-    @NumberFormat(pattern = "#-###-###-##-##")
-    @Pattern(regexp = "\\d{1}-\\d{3}-\\d{3}-\\d{2}-\\d{2}", message = "Invalid phone number")
-    private String number;
+    private List< @NotNull @Pattern(
+            regexp = "\\d{1}-\\d{3}-\\d{3}-\\d{2}-\\d{2}",
+            message = "Invalid phone number"
+    ) String> numbers;
     @NotNull
-    @Email(message = "Invalid email address")
-    private String email;
+    private List<@NotNull @Email(message = "Invalid email address") String> emails;
     @NotNull
     private AccountDTO account;
 }

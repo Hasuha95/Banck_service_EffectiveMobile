@@ -40,11 +40,15 @@ public class UserEntity {
         account = new AccountEntity();
     }
 
-    public void setNumbers(String number){
-        numbers.add(number);
+    public void setNumbers(List<String> numbers){
+        for (String n : numbers) {
+            this.numbers.add(n);
+        }
     }
 
-    public void setEmails(String email) {
-        emails.add(email);
+    public void setEmails(List<String> emails) {
+        for (String e : emails) {
+            this.emails.add(e);
+        }
     }
 }

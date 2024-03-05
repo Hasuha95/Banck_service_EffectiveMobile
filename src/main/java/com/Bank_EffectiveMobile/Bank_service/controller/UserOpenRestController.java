@@ -26,14 +26,6 @@ public class UserOpenRestController {
         return userRepoService.addNewUser(user);
     }
 
-
-
-
-
-
-
-
-
     /**
      * ExceptionHandlers
      *
