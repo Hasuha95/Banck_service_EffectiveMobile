@@ -37,15 +37,15 @@ public class CustomUserRepositoryImpl implements CustomUserRepository{
     }
 
     @Override
-    public UserEntity findUserByNumber(String number) {
+    public List<UserEntity> findUserByNumber(String number) {
         query = entityManager.createQuery("FROM UserEntity u " +
                 "WHERE str(u.numbers) LIKE :number");
-        query.setParameter("number", number);
-        return (UserEntity) query.getSingleResult();
+        query.setParameter("number", "%" + number + "%");
+        return query.getResultList();
     }
 
     @Override
-    public List<UserEntity> findUserByFoolName(String name, String lastName, String surname){
+    public List<UserEntity> findUserByFullName(String name, String lastName, String surname){
         query = entityManager.createQuery("FROM UserEntity u " +
                 "WHERE u.name = :name AND u.lastName = :lastName AND u.surname = :surname");
         query.setParameter("name", name);
@@ -56,10 +56,10 @@ public class CustomUserRepositoryImpl implements CustomUserRepository{
     }
 
     @Override
-    public UserEntity findUserByEmail(String email) {
+    public List<UserEntity> findUserByEmail(String email) {
         query = entityManager.createQuery("FROM UserEntity u " +
                 "WHERE str(u.emails) LIKE :email");
-        query.setParameter("email", email);
-        return (UserEntity) query.getSingleResult();
+        query.setParameter("email", "%" + email + "%");
+        return query.getResultList();
     }
 }

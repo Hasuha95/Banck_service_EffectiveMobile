@@ -21,10 +21,15 @@ public class UserOpenRestController {
     @Autowired
     private UserService userRepoService;
 
+    /**
+     * @param user
+     * @return
+     */
     @PostMapping
     public UserEntity addNewUserWithForm(@Valid @RequestBody UserDTO user){
         return userRepoService.addNewUser(user);
     }
+
 
     /**
      * ExceptionHandlers
@@ -33,7 +38,6 @@ public class UserOpenRestController {
      * @HttpMessageNotReadableException
      * @MethodArgumentNotValidExceptionHandler
      */
-
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(UserAlreadyExistsException.class)
     private ResponseEntity<String> UserAlreadyExistsExceptionHandler(UserAlreadyExistsException exception){

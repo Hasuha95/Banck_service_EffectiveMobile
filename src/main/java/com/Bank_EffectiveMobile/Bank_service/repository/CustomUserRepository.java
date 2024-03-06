@@ -10,10 +10,10 @@ public interface CustomUserRepository {
 
     List<UserEntity> findUserByDate(LocalDate date);
 
-    UserEntity findUserByNumber(String number);
+    List<UserEntity> findUserByNumber(String number);
 
-    List<UserEntity> findUserByFoolName(String name, String lastName, String surname);
+    List<UserEntity> findUserByFullName(String name, String lastName, String surname);
 
-    UserEntity findUserByEmail(String number);
+    List<UserEntity> findUserByEmail(String number);
 
 }
