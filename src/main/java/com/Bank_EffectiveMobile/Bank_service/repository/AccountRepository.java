@@ -1,6 +1,6 @@
 package com.Bank_EffectiveMobile.Bank_service.repository;
 
-import com.Bank_EffectiveMobile.Bank_service.entity.AccountEntity;
+import com.Bank_EffectiveMobile.Bank_service.model.entity.AccountEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

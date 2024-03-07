@@ -1,4 +1,4 @@
-package com.Bank_EffectiveMobile.Bank_service.entity;
+package com.Bank_EffectiveMobile.Bank_service.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -42,13 +42,18 @@ public class UserEntity {
 
     public void setNumbers(List<String> numbers){
         for (String n : numbers) {
-            this.numbers.add(n);
+            if (!this.numbers.contains(n)){
+                this.numbers.add(n);
+            }
         }
     }
 
     public void setEmails(List<String> emails) {
         for (String e : emails) {
-            this.emails.add(e);
+            if (!this.numbers.contains(e)){
+                this.emails.add(e);
+            }
+
         }
     }
 }

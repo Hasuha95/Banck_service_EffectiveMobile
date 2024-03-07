@@ -1,12 +1,6 @@
 package com.Bank_EffectiveMobile.Bank_service.service;
 
-import com.Bank_EffectiveMobile.Bank_service.entity.AccountEntity;
-import com.Bank_EffectiveMobile.Bank_service.entity.UserEntity;
-import com.Bank_EffectiveMobile.Bank_service.model.AccountDtoConvertor;
-import com.Bank_EffectiveMobile.Bank_service.model.UserDTO;
-import com.Bank_EffectiveMobile.Bank_service.model.UserDtoConvertor;
-import com.Bank_EffectiveMobile.Bank_service.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDTO;
 
 public class UserServiceFacade {
 //    @Autowired
