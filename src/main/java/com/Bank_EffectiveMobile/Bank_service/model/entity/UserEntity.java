@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -40,20 +39,4 @@ public class UserEntity {
         account = new AccountEntity();
     }
 
-    public void setNumbers(List<String> numbers){
-        for (String n : numbers) {
-            if (!this.numbers.contains(n)){
-                this.numbers.add(n);
-            }
-        }
-    }
-
-    public void setEmails(List<String> emails) {
-        for (String e : emails) {
-            if (!this.numbers.contains(e)){
-                this.emails.add(e);
-            }
-
-        }
-    }
 }

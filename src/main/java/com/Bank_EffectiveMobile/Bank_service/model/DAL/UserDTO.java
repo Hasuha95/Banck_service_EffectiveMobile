@@ -4,12 +4,13 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@Slf4j
 @ToString
 @Data
 @Validated
@@ -32,12 +33,15 @@ public class UserDTO {
     @Length(min = 4, max = 64, message = "incorrect password field length")
     private String password;
     @NotNull
+    @NotEmpty
     private List< @NotNull @Pattern(
             regexp = "\\d{1}-\\d{3}-\\d{3}-\\d{2}-\\d{2}",
             message = "Invalid phone number"
     ) String> numbers;
     @NotNull
+    @NotEmpty
     private List<@NotNull @Email(message = "Invalid email address") String> emails;
-    @NotNull
+    @Nullable
     private AccountDTO account;
+
 }

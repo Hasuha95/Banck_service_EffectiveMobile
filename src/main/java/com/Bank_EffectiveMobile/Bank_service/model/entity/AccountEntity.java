@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 @ToString
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "account")
 public class AccountEntity {
@@ -17,7 +16,4 @@ public class AccountEntity {
     @Value(value = "${bank-account.default-sum}")
     private float sum;
 
-    public AccountEntity(float sum) {
-        this.sum = sum;
-    }
 }

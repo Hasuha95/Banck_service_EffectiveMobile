@@ -5,7 +5,6 @@ import com.Bank_EffectiveMobile.Bank_service.model.entity.UserEntity;
 import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDTO;
 import com.Bank_EffectiveMobile.Bank_service.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/v1/close/changes")
-public class UserDataChangesRestController {
+public class DataChangesCloseRestController {
     private UserService service;
 
     @Autowired
-    public UserDataChangesRestController(UserService service) {
+    public DataChangesCloseRestController(UserService service) {
         this.service = service;
     }
 
@@ -32,7 +31,6 @@ public class UserDataChangesRestController {
     public UserEntity updateUserData(@Valid @RequestBody UserDTO user){
         return service.updateUserData(user);
     }
-
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(UserAlreadyExistsException.class)

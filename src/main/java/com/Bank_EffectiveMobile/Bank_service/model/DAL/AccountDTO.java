@@ -1,12 +1,12 @@
 package com.Bank_EffectiveMobile.Bank_service.model.DAL;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
+import lombok.ToString;
 @Data
+@ToString
 public class AccountDTO {
-    @NotNull
+
     @Min(value = 0)
     private float sum;
 }

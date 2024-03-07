@@ -59,7 +59,7 @@ public class UserService {
     }
 
     public UserEntity updateUserData(final UserDTO user) {
-        ExistStatus existStatus = canBeUpdate(user);
+        ExistStatus existStatus = canBeUpdated(user);
         log.info("existStatus_ : " + existStatus.toString());
         if (existStatus.status){
             throw new UserAlreadyExistsException("user with such "
@@ -104,12 +104,13 @@ public class UserService {
         return new ExistStatus("not exist", false);
     }
 
-    private ExistStatus canBeUpdate(final UserDTO user){
+    private ExistStatus canBeUpdated(final UserDTO user){
         String login = user.getLogin();
         List<String> numbers = user.getNumbers();
         List<String> emails = user.getEmails();
 
         List<String> listOfExistParams = repository.canBeUpdate(login, numbers, emails);
+        log.info("userService__ : " + listOfExistParams.toString());
         if (listOfExistParams == null) {
             return new ExistStatus("not exist", false);
         } else {
