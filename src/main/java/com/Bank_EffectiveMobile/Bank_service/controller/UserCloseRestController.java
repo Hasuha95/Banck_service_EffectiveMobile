@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/v1/close")
 public class UserCloseRestController {
@@ -26,9 +27,9 @@ public class UserCloseRestController {
      * @param parameters {
      * parameter "date" must be valid  @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}")
      * parameter "number" must be valid @Pattern(regexp = "\\d{1}-\\d{3}-\\d{3}-\\d{2}-\\d{2}")
-     * parameter foolName must consist of 3 words in the order
-     *                 “last name first name patronymic”
-     *                 separated by a space
+     * parameter "name" must be filled in together with other "ФИО" parameters.
+     * parameter "lastName" must be filled in together with other "ФИО" parameters.
+     * parameter "surname" must be filled in together with other "ФИО" parameters - this field means "отчество".
      * parameter "email" must be valid like @Email
      * }
      * @return
