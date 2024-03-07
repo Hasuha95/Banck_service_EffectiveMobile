@@ -1,11 +1,11 @@
 package com.Bank_EffectiveMobile.Bank_service.controller;
 
 import com.Bank_EffectiveMobile.Bank_service.exception.UserAlreadyExistsException;
-import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDTO;
 import com.Bank_EffectiveMobile.Bank_service.model.entity.UserEntity;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDTO;
 import com.Bank_EffectiveMobile.Bank_service.service.UserService;
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +13,26 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
+
 @RestController
-@RequestMapping(value = "/api/v1/open")
-public class UserOpenRestController {
+@RequestMapping(value = "/api/v1/close/changes")
+public class UserDataChangesRestController {
+    private UserService service;
+
     @Autowired
-    private UserService userRepoService;
+    public UserDataChangesRestController(UserService service) {
+        this.service = service;
+    }
 
     /**
-     * @param user
+     * @param user you can only change your number and email
      * @return
      */
-    @PostMapping
-    public UserEntity addNewUserWithForm(@Valid @RequestBody UserDTO user){
-        return userRepoService.addNewUser(user);
+    @PutMapping
+    public UserEntity updateUserData(@Valid @RequestBody UserDTO user){
+        return service.updateUserData(user);
     }
+
 
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(UserAlreadyExistsException.class)

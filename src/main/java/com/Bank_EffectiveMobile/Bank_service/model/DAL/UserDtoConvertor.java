@@ -1,6 +1,6 @@
-package com.Bank_EffectiveMobile.Bank_service.model;
+package com.Bank_EffectiveMobile.Bank_service.model.DAL;
 
-import com.Bank_EffectiveMobile.Bank_service.entity.UserEntity;
+import com.Bank_EffectiveMobile.Bank_service.model.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

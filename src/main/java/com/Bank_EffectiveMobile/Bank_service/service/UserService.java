@@ -2,30 +2,28 @@ package com.Bank_EffectiveMobile.Bank_service.service;
 
 import com.Bank_EffectiveMobile.Bank_service.exception.BadRequestParametersException;
 import com.Bank_EffectiveMobile.Bank_service.exception.UserAlreadyExistsException;
-import com.Bank_EffectiveMobile.Bank_service.model.FilterParameters;
-import com.Bank_EffectiveMobile.Bank_service.model.UserDTO;
-import com.Bank_EffectiveMobile.Bank_service.entity.UserEntity;
-import com.Bank_EffectiveMobile.Bank_service.model.UserDtoConvertor;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.FilterParameters;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDTO;
+import com.Bank_EffectiveMobile.Bank_service.model.entity.UserEntity;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.UserDtoConvertor;
+import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Bank_EffectiveMobile.Bank_service.repository.UserRepository;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserService {
     @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
     public UserEntity addNewUser(final UserDTO userDto) {
         ExistStatus existStatus = isUserExist(userDto);
@@ -37,9 +35,9 @@ public class UserService {
         }
     }
 
-    public List<UserEntity> getUserByParameters(FilterParameters params){
-        switch (whatTypeOfFilter(params)){
-            case DATE ->{
+    public List<UserEntity> getUserByParameters(final FilterParameters params) {
+        switch (whatTypeOfFilter(params)) {
+            case DATE -> {
                 return repository.findUserByDate(params.getDate());
             }
             case NUMBER -> {
@@ -60,13 +58,34 @@ public class UserService {
         }
     }
 
+    public UserEntity updateUserData(final UserDTO user) {
+        ExistStatus existStatus = canBeUpdate(user);
+        log.info("existStatus_ : " + existStatus.toString());
+        if (existStatus.status){
+            throw new UserAlreadyExistsException("user with such "
+                    + existStatus.message + " already exists");
+        }
+
+        UserEntity entityFromDB = repository.findUserEntityByLogin(user.getLogin());
+        log.info("entityFromDB_ : " + entityFromDB.toString());
+        if (entityFromDB != null) {
+            entityFromDB.setNumbers(user.getNumbers());
+            entityFromDB.setEmails(user.getEmails());
+            log.info("entityFromDB_ : " + entityFromDB.toString());
+            return repository.save(entityFromDB);
+        } else {
+            return null;
+        }
+    }
+
     private ExistStatus isUserExist(final UserDTO user) {
         String login = user.getLogin();
         String number = user.getNumbers().get(0);
         String email = user.getEmails().get(0);
 
-        List<String> listOfExistParams = repository.findUsersWithCreatingParameters(login, number, email);
-        if (listOfExistParams == null){
+        List<String> listOfExistParams = repository.isUserExist(login, number, email);
+
+        if (listOfExistParams == null) {
             return new ExistStatus("not exist", false);
         } else {
             listOfExistParams = listOfExistParams
@@ -74,17 +93,47 @@ public class UserService {
                     .flatMap(s -> Stream.of(s.split(",")))
                     .collect(Collectors.toList());
         }
-        if (listOfExistParams.contains(login)){
+
+        if (listOfExistParams.contains(login)) {
             return new ExistStatus("login", true);
         } else if (listOfExistParams.contains(number)) {
             return new ExistStatus("number", true);
-        } else if (listOfExistParams.contains(email)){
+        } else if (listOfExistParams.contains(email)) {
             return new ExistStatus("email", true);
         }
         return new ExistStatus("not exist", false);
     }
-    
-    private TypeOfFilter whatTypeOfFilter(FilterParameters params) {
+
+    private ExistStatus canBeUpdate(final UserDTO user){
+        String login = user.getLogin();
+        List<String> numbers = user.getNumbers();
+        List<String> emails = user.getEmails();
+
+        List<String> listOfExistParams = repository.canBeUpdate(login, numbers, emails);
+        if (listOfExistParams == null) {
+            return new ExistStatus("not exist", false);
+        } else {
+            listOfExistParams = listOfExistParams
+                    .stream()
+                    .flatMap(s -> Stream.of(s.split(",")))
+                    .collect(Collectors.toList());
+        }
+
+        for (String n : numbers) {
+            if (listOfExistParams.contains(n)){
+                return new ExistStatus("number", true);
+            }
+        }
+
+        for (String e : emails) {
+            if (listOfExistParams.contains(e)){
+                return new ExistStatus("email", true);
+            }
+        }
+        return new ExistStatus("not exist", false);
+    }
+
+    private TypeOfFilter whatTypeOfFilter(final FilterParameters params) {
         log.info("FilterParameters: " + params);
         if (params.getNumber() != null) {
             return TypeOfFilter.NUMBER;

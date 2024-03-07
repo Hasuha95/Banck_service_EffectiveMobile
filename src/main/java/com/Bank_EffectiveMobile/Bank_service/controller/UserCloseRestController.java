@@ -1,8 +1,8 @@
 package com.Bank_EffectiveMobile.Bank_service.controller;
 
-import com.Bank_EffectiveMobile.Bank_service.entity.UserEntity;
+import com.Bank_EffectiveMobile.Bank_service.model.entity.UserEntity;
 import com.Bank_EffectiveMobile.Bank_service.exception.BadRequestParametersException;
-import com.Bank_EffectiveMobile.Bank_service.model.FilterParameters;
+import com.Bank_EffectiveMobile.Bank_service.model.DAL.FilterParameters;
 import com.Bank_EffectiveMobile.Bank_service.service.UserService;
 import jakarta.persistence.NoResultException;
 import jakarta.validation.Valid;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/close")
+@RequestMapping(value = "/api/v1/close/search")
 public class UserCloseRestController {
     private UserService userService;
     @Autowired
@@ -34,7 +34,7 @@ public class UserCloseRestController {
      * }
      * @return
      */
-    @PostMapping(value = "/users")
+    @PostMapping
     public List<UserEntity> findUsersWithFilter(@Valid @RequestBody FilterParameters parameters){
         return userService.getUserByParameters(parameters);
     }

@@ -1,4 +1,4 @@
-package com.Bank_EffectiveMobile.Bank_service.entity;
+package com.Bank_EffectiveMobile.Bank_service.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

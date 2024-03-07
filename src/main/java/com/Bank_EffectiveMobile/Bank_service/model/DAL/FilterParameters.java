@@ -1,4 +1,4 @@
-package com.Bank_EffectiveMobile.Bank_service.model;
+package com.Bank_EffectiveMobile.Bank_service.model.DAL;
 
 import com.Bank_EffectiveMobile.Bank_service.exception.BadRequestParametersException;
 import jakarta.annotation.Nullable;

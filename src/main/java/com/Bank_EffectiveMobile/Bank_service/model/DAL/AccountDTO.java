@@ -1,4 +1,4 @@
-package com.Bank_EffectiveMobile.Bank_service.model;
+package com.Bank_EffectiveMobile.Bank_service.model.DAL;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
