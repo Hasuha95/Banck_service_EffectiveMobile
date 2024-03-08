@@ -8,8 +8,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/Bank
-    username: postgres
-    password: hoxa-95-hoxa
+    username:
+    password:
   jpa:
     show-sql: true
     properties:
