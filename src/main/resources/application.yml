@@ -1,15 +1,15 @@
 server:
   port: 9506
   servlet:
-    context-path: /Bank
+    context-path: /bank
 
 
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/Bank
-    username:
-    password:
+    username: postgres
+    password: hoxa-95-hoxa
   jpa:
     show-sql: true
     properties:
@@ -25,3 +25,7 @@ spring:
 
 account:
   default-sum: 1000
+
+jwt:
+  secret: Z29yZXRz
+  life-time: 30m

@@ -34,6 +34,10 @@ public class CustomUserRepositoryImpl implements CustomUserRepository{
         query = entityManager.createQuery("SELECT u.login, u.numbers, u.emails FROM UserEntity u" +
                 " WHERE u.login != :login" +
                 " AND (u.numbers IN (:numbers) OR u.emails IN (:emails))");
+//        query = entityManager.createQuery("SELECT u.login, u.numbers, u.emails FROM UserEntity u" +
+//                " WHERE u.login != :login" +
+//                " AND (u.numbers && ARRAY[:numbers]::character varying[]" +
+//                " OR u.emails && ARRAY[:emails]::character varying[])");
 
         query.setParameter("login", login);
         query.setParameter("numbers", numbers);
