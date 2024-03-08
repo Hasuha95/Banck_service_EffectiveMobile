@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.Bank_EffectiveMobile.Bank_service.repository.UserRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,7 +68,7 @@ public class UserService {
                     + existStatus.message + " already exists");
         }
 
-        UserEntity entityFromDB = repository.findUserEntityByLogin(user.getLogin());
+        UserEntity entityFromDB = repository.findUserEntityByLogin(user.getLogin()).get();
         log.info("entityFromDB_ : " + entityFromDB.toString());
         if (entityFromDB != null) {
             entityFromDB.setNumbers(user.getNumbers());
@@ -76,6 +78,15 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    public UserEntity getUserByLogin(String login) {
+        log.info("login__: " + login);
+        return repository
+                .findUserEntityByLogin(login)
+                .orElseThrow(()-> new UsernameNotFoundException(
+                        String.format("user with login: '%s' nut found", login)
+                ));
     }
 
     private ExistStatus isUserExist(final UserDTO user) {
@@ -110,7 +121,6 @@ public class UserService {
         List<String> emails = user.getEmails();
 
         List<String> listOfExistParams = repository.canBeUpdate(login, numbers, emails);
-        log.info("userService__ : " + listOfExistParams.toString());
         if (listOfExistParams == null) {
             return new ExistStatus("not exist", false);
         } else {
@@ -150,6 +160,7 @@ public class UserService {
             throw new BadRequestParametersException("invalid filter parameters");
         }
     }
+
 
     @ToString
     private final class ExistStatus{

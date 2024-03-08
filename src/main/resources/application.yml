@@ -1,7 +1,7 @@
 server:
   port: 9506
   servlet:
-    context-path: /Bank
+    context-path: /bank
 
 
 spring:
@@ -25,3 +25,7 @@ spring:
 
 account:
   default-sum: 1000
+
+jwt:
+  secret: Z29yZXRz
+  life-time: 30m

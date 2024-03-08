@@ -26,7 +26,6 @@ public class UserOpenRestController {
      */
     @PostMapping
     public UserEntity addNewUserWithForm(@Valid @RequestBody UserDTO user){
-        log.info("user_: " + user.toString());
         return userRepoService.addNewUser(user);
     }
 
