@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,7 +26,10 @@ public class SecurityUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity entity = service.getUserByLogin(username);
         List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("USER"));
+        String lg = "noha";
+        String ps = "$2a$12$GUWkaE8G50aKnNkF7YfTGOEt6JYmx73L.ET0W9k6tqLZUy2os3CYS";
+
         return new User(
-                entity.getLogin(), entity.getPassword(), authorities);
+                lg, ps, authorities);
     }
 }

@@ -11,14 +11,13 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 @EnableMethodSecurity
+@EnableWebSecurity
 public class SecurityConfiguration {
 //    private UserService userService;
 //    private JwtRequestFilter jwtRequestFilter;
@@ -31,23 +30,26 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        Object jwtRequestFilter;
-        SessionManagementConfigurer sessionManagementConfigurer = new SessionManagementConfigurer<HttpSecurity>();
         http
-                .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests((request)-> request
-                        .requestMatchers("/api/v1/open").permitAll()
-                        .requestMatchers("/api/v1/close/**").authenticated()
+                        .requestMatchers("/api/vi/close/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .logout((logout) -> logout.permitAll())
-//                .and
+                .formLogin(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
                 .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(Customizer.withDefaults());
+
+//                .csrf(Customizer.withDefaults())
+
+//                .logout((logout) -> logout.permitAll())
+//                .and
+
 //                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 //                .and().addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
@@ -68,7 +70,5 @@ public class SecurityConfiguration {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
-
-
 
 }
