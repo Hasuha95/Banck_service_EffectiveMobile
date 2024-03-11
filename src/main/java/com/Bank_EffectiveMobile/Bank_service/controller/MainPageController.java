@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/main")
 public class MainPageController {
 
-
     @GetMapping(value = "")
-    public String getPage(){
+    public String mainPage() {
         System.out.println("test");
-        return "fuck/test_page.html";
+        return "my_templates/mainHTML/main_page.html";
     }
 }

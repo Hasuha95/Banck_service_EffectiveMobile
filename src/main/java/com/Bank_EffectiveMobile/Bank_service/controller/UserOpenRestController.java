@@ -15,12 +15,22 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/open")
+@RequestMapping(value = "/api/v1/open/new_user")
 public class UserOpenRestController {
     @Autowired
     private UserService userRepoService;
 
+//    {
+//        "login": "user6",
+//            "password": "nohcho95",
+//            "numbers": ["8-932-095-55-99"],
+//        "emails": ["vgvgvg@mail.ru"],
+//        "account": {
+//        "sum": 2323
+//    }
+//    }
     /**
+     * @URL - http://localhost:9506/bank/api/v1/open/new_user
      * @param user
      * @return
      */
